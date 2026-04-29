@@ -12,6 +12,10 @@ matchRouter.get('/',async (req,res)=>{
 
     const MAX_LIMIT = 100;
 
+    if(!parsed.success){
+        return res.status(400).json({error: 'Invalid query', details: parsed.error.issues});
+    }
+
     const limits = Math.min(parsed.data.limit ?? 50 , MAX_LIMIT);
     try{
         const data = await db
