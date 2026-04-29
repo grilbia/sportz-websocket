@@ -12,14 +12,13 @@ matchRouter.get('/',async (req,res)=>{
 
     const MAX_LIMIT = 100;
 
-    const limit = Math.min(parsed.data.limit ?? 50 , MAX_LIMIT);
+    const limits = Math.min(parsed.data.limit ?? 50 , MAX_LIMIT);
     try{
         const data = await db
         .select()
         .from(matches)
         .orderBy((desc(matches.createdAt)))
-        .limit(limit)
-
+        .limit(limits)
         res.json({data: data});
     }catch(e){
         res.status(500).json({message: "Invalid request"})
