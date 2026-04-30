@@ -44,6 +44,9 @@ matchRouter.post('/',async (req,res)=> {
             status: getMatchStatus(parsed.data.startTime, parsed.data.endTime),
         }).returning();
 
+        if(res.app.locals.broadcastMatchCreated){
+            return res.app.locals.broadcastMatchCreated(event);
+        }
         res.status(200).json({data: event});
     }catch(e){
         res.status(500).json({error: 'failed to create match.', details: JSON.stringify(e)});
