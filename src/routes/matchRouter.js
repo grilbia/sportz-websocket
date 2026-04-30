@@ -45,7 +45,7 @@ matchRouter.post('/',async (req,res)=> {
         }).returning();
 
         if(res.app.locals.broadcastMatchCreated){
-            return res.app.locals.broadcastMatchCreated(event);
+            res.app.locals.broadcastMatchCreated(event);
         }
         res.status(200).json({data: event});
     }catch(e){
